@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Skills - Sanjeev Nandihalli</title>
+  <style>
+    body {
+      background: #181818;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 500px;
+      margin: 4rem auto;
+      background: #232323;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+      padding: 2.5rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #00bcd4;
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .personal-skill-area {
+      background: #00bcd4;
+      color: #181818;
+      padding: 1.2rem 2.5rem;
+      border-radius: 32px;
+      font-size: 1.25rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,188,212,0.10);
+      margin-bottom: 2rem;
+      position: relative;
+      transition: background 0.2s, color 0.2s;
+    }
+    .personal-skill-area:hover {
+      background: #ffb300;
+      color: #181818;
+    }
+    .skills-list {
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: 110%;
+      transform: translateX(-50%);
+      background: #232323;
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+      padding: 1.2rem 2rem;
+      min-width: 260px;
+      z-index: 10;
+      font-size: 1.08rem;
+      text-align: left;
+      animation: fadeIn 0.4s;
+    }
+    .personal-skill-area:hover .skills-list {
+      display: block;
+    }
+    .skills-list li {
+      margin-bottom: 0.7rem;
+      list-style: square inside;
+      color: #ffb300;
+      font-weight: 500;
+    }
+    .skills-list li span {
+      color: #fff;
+      font-weight: 400;
+      margin-left: 0.5rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px) translateX(-50%); }
+      to { opacity: 1; transform: translateY(0) translateX(-50%); }
+    }
+    .back {
+      color: #ffb300;
+      text-decoration: none;
+      font-size: 1.1rem;
+      display: inline-block;
+      margin-top: 2.5rem;
+      transition: color 0.2s;
+    }
+    .back:hover {
+      color: #00bcd4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Personal Skills</h1>
+    <div class="personal-skill-area">
+      Personal Skills
+      <ul class="skills-list">
+        <li><span>Hard Working</span></li>
+        <li><span>Leadership</span></li>
+        <li><span>Communication Skills</span></li>
+        <li><span>Honesty</span></li>
+        <li><span>Team Working</span></li>
+      </ul>
+    </div>
+    <a class="back" href="index.html">&larr; Back to Portfolio</a>
+  </div>
+</body>
+</html> 

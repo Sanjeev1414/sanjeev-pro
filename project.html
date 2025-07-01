@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Details</title>
+  <style>
+    body {
+      background: #181818;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 700px;
+      margin: 3rem auto;
+      background: #232323;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+      padding: 2.5rem 2rem 2rem 2rem;
+    }
+    h1 {
+      color: #00bcd4;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #00bcd4 40%, #ffb300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .topic {
+      color: #ffb300;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      display: block;
+      font-size: 1.1rem;
+    }
+    ul {
+      color: #bbb;
+      font-size: 1.08rem;
+      margin-bottom: 1.2rem;
+      margin-left: 1.2rem;
+    }
+    .tech {
+      color: #00bcd4;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    a.back {
+      color: #ffb300;
+      text-decoration: none;
+      font-size: 1.1rem;
+      display: inline-block;
+      margin-top: 1.5rem;
+      transition: color 0.2s;
+    }
+    a.back:hover {
+      color: #00bcd4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="project-container">
+    <!-- Project details will be injected here -->
+  </div>
+  <script>
+    const projects = {
+      'student-portal': {
+        title: 'Student Portal',
+        topic: 'College Management',
+        details: [
+          'A web app for students to view grades, attendance, and submit assignments online.'
+        ],
+        tech: 'React, Node.js, MongoDB'
+      },
+      'online-bookstore': {
+        title: 'Online Bookstore',
+        topic: 'E-Commerce',
+        details: [
+          'E-commerce platform for browsing and purchasing books with secure payments.'
+        ],
+        tech: 'HTML, CSS, JavaScript, Python (Flask)'
+      },
+      'parking-management': {
+        title: 'PARKING MANAGEMENT SYSTEM',
+        topic: 'Parking Automation',
+        details: [
+          'Developed a parking management solution using HTML, CSS, JavaScript, and Python Django.',
+          'Utilized XAMPP for database management.'
+        ],
+        tech: 'HTML, CSS, JavaScript, Python (Django), XAMPP'
+      },
+      'college-management': {
+        title: 'COLLEGE MANAGEMENT SYSTEM',
+        topic: 'Education Platform',
+        details: [
+          'Built a Web-based platform to improve communication between administrators, staff, and students.',
+          'Implemented using Full Stack Development tools and SQLite for data storage.'
+        ],
+        tech: 'Full Stack Development, SQLite'
+      },
+      'smart-agriculture': {
+        title: 'SMART AGRICULTURE USING IOT & AIML (April-2025)',
+        topic: 'IoT & AI in Agriculture',
+        details: [
+          'Developed an IoT-based smart agriculture solution to monitor environmental conditions and optimize farming operations.',
+          'Implemented real-time temperature and humidity sensing using sensors integrated with a microcontroller.',
+          'Automated key agricultural tasks such as crop sowing and cutting using motor-controlled mechanisms.',
+          'Designed and developed a companion Android application for farmers to monitor data and control operations remotely.',
+          'Technologies used: Arduino/ESP32, DHT11/22 sensors, motors, Firebase (or your backend), Android (Java/Embedded C), Bluetooth/Wi-Fi.',
+          'Presented the project at the 2nd Intern'
+        ],
+        tech: 'Arduino/ESP32, DHT11/22, Motors, Firebase, Android, Java, Embedded C, Bluetooth/Wi-Fi'
+      }
+    };
+    function getProjectKey() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('project');
+    }
+    function renderProject() {
+      const key = getProjectKey();
+      const project = projects[key];
+      const container = document.getElementById('project-container');
+      if (!project) {
+        container.innerHTML = '<h1>Project Not Found</h1><a class="back" href="index.html">&larr; Back to Portfolio</a>';
+        return;
+      }
+      container.innerHTML = `
+        <h1>${project.title}</h1>
+        <span class="topic">Topic: ${project.topic}</span>
+        <ul>${project.details.map(d => `<li>${d}</li>`).join('')}</ul>
+        <div class="tech">Technologies: ${project.tech}</div>
+        <a class="back" href="index.html">&larr; Back to Portfolio</a>
+      `;
+    }
+    renderProject();
+  </script>
+</body>
+</html> 

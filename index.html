@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sanjeev Nandihalli | Portfolio</title>
+  <style>
+    body {
+      background: #181818;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="%2300bcd4" offset="0"/><stop stop-color="%23ffb300" offset="1"/></linearGradient></defs><rect width="100%25" height="100%25" fill="url(%23g1)" fill-opacity="0.08"/></svg>');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    nav {
+      background: rgba(34, 34, 34, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 188, 212, 0.1);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    nav a {
+      color: #00bcd4;
+      text-decoration: none;
+      margin: 0 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      position: relative;
+      overflow: hidden;
+    }
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 188, 212, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    nav a:hover::before {
+      left: 100%;
+    }
+    nav a:hover {
+      color: #fff;
+      background: rgba(0, 188, 212, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+    }
+    nav a:active {
+      transform: translateY(0);
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    .intro {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .intro h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #00bcd4;
+    }
+    .intro h2 {
+      color: #00bcd4;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+    .intro p {
+      font-size: 1.1rem;
+      color: #ccc;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .skills, .projects, .contact {
+      margin-top: 3rem;
+    }
+    .skill-row {
+      display: contents;
+    }
+    .skill-bar {
+      grid-column: 1;
+      height: 14px;
+      border-radius: 8px;
+      background: #333;
+      width: 160px;
+      overflow: hidden;
+      margin-right: 0.7rem;
+      box-shadow: 0 1px 6px rgba(0,188,212,0.10);
+      position: relative;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #00bcd4 60%, #ffb300 100%);
+      transition: width 0.7s cubic-bezier(.4,2,.6,1);
+      position: absolute;
+      left: 0; top: 0;
+    }
+    .skill-label-wrap {
+      grid-column: 2;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+    }
+    .skill-label {
+      min-width: 120px;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: inherit;
+    }
+    .skills-list {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0.2rem 1.2rem;
+      margin-top: 1rem;
+      margin-right: 0;
+    }
+    .skills-list .html { background: #e44d26; color: #fff; }
+    .skills-list .css { background: #264de4; color: #fff; }
+    .skills-list .js { background: #f0db4f; color: #222; }
+    .skills-list .python { background: #306998; color: #fff; }
+    .skills-list .java { background: #b07219; color: #fff; }
+    .skills-list .mysql { background: #00758f; color: #fff; }
+    .skills-list .fullstack { background: #8e44ad; color: #fff; }
+    .skills-list .manualtesting { background: #ff7043; color: #fff; }
+    .skills-list span {
+      position: relative;
+      padding: 0.7rem 2.2rem;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      min-width: 120px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .skills-list .skill-number {
+      display: none;
+      position: absolute;
+      left: -2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      font-weight: bold;
+      background: rgba(0,0,0,0.15);
+      color: #fff;
+      padding: 0.2rem 0.7rem;
+      border-radius: 12px;
+      pointer-events: none;
+    }
+    .skills-list span:hover .skill-number {
+      display: inline-block;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .project-card {
+      background: rgba(34, 34, 34, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid rgba(0, 188, 212, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00bcd4, #ffb300, #ff4081);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0, 188, 212, 0.2);
+      border-color: rgba(0, 188, 212, 0.3);
+    }
+    .project-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #00bcd4;
+      margin-bottom: 0.8rem;
+    }
+    .project-icon {
+      font-size: 1.6rem;
+      color: #ffb300;
+    }
+    .project-description {
+      color: #bbb;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tech-tag {
+      background: rgba(0, 188, 212, 0.1);
+      color: #00bcd4;
+      padding: 0.3rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .project-link {
+      color: #ffb300;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .contact-section {
+      margin-top: 3rem;
+      padding: 2rem;
+      background: rgba(34, 34, 34, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 188, 212, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .contact-card {
+      background: rgba(51, 51, 51, 0.6);
+      border-radius: 16px;
+      padding: 1.4rem;
+      border: 1px solid rgba(0, 188, 212, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      min-height: 160px;
+    }
+    .contact-card:nth-child(1) {
+      border-radius: 20px 5px 20px 5px;
+      background: linear-gradient(135deg, rgba(51, 51, 51, 0.8), rgba(0, 188, 212, 0.1));
+    }
+    .contact-card:nth-child(2) {
+      border-radius: 5px 20px 5px 20px;
+      background: linear-gradient(135deg, rgba(51, 51, 51, 0.8), rgba(255, 179, 0, 0.1));
+    }
+    .contact-card:nth-child(3) {
+      border-radius: 50% 20px 20px 20px;
+      background: linear-gradient(135deg, rgba(51, 51, 51, 0.8), rgba(156, 39, 176, 0.1));
+    }
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 188, 212, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+    .contact-card:hover::before {
+      left: 100%;
+    }
+    .contact-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(0, 188, 212, 0.2);
+      border-color: rgba(0, 188, 212, 0.3);
+    }
+    .contact-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .contact-card:nth-child(1) .contact-icon {
+      color: #00bcd4;
+    }
+    .contact-card:nth-child(2) .contact-icon {
+      color: #ffb300;
+    }
+    .contact-card:nth-child(3) .contact-icon {
+      color: #9c27b0;
+    }
+    .contact-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #00bcd4;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .contact-value {
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+    .contact-link {
+      color: #ffb300;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .contact-link:hover {
+      color: #00bcd4;
+      transform: translateX(3px);
+    }
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+    .social-btn {
+      background: rgba(0, 188, 212, 0.1);
+      color: #00bcd4;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 188, 212, 0.2);
+    }
+    .social-btn:hover {
+      background: rgba(0, 188, 212, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+    }
+    @media (max-width: 600px) {
+      nav a { margin: 0 0.7rem; }
+      .container { padding: 1rem 0.3rem; }
+      .intro h1 { font-size: 2rem; }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    a[href="resume.html"]:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,188,212,0.4), 0 0 20px rgba(255,179,0,0.3);
+      background-size: 150% 150%;
+      border-color: rgba(255,255,255,0.3);
+    }
+    
+    a[href="resume.html"]:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+    
+    a[href="resume.html"]::before {
+      content: '📄';
+      margin-right: 0.5rem;
+      font-size: 1.2rem;
+    }
+    .marquee-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(90deg, rgba(0, 188, 212, 0.9), rgba(255, 179, 0, 0.9), rgba(255, 64, 129, 0.9));
+      backdrop-filter: blur(10px);
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+      overflow: hidden;
+      height: 50px;
+    }
+    .marquee-content {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-text {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      margin: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .marquee-icon {
+      font-size: 1.3rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-5px);
+      }
+      60% {
+        transform: translateY(-3px);
+      }
+    }
+    .marquee-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: glow 3s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%, 100% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="fluid-background" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; pointer-events:none;">
+    <canvas id="fluid-canvas" style="width:100%; height:100%; display:block;"></canvas>
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; margin-top: 2rem; margin-bottom: 1rem; flex-direction: column;">
+    <img src="Formal photo.webp" alt="Formal Photo" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: 4px solid #222; background: #fff;" />
+    <span style="margin-top: 1rem; font-size: 1.4rem; font-family: 'Segoe Script', 'Brush Script MT', cursive, sans-serif; color: #ff4081; letter-spacing: 2px; font-weight: bold; text-shadow: 1px 2px 8px rgba(255,64,129,0.10);">Engineer</span>
+    <a href="resume.html" style="margin-top: 1.2rem; background: linear-gradient(135deg, #00bcd4 0%, #ffb300 50%, #ff4081 100%); background-size: 200% 200%; color: #fff; padding: 1rem 2.5rem; border-radius: 30px; font-weight: bold; text-decoration: none; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,188,212,0.3); transition: all 0.4s ease; position: relative; overflow: hidden; border: 2px solid transparent; animation: gradientShift 3s ease infinite;">View Resume</a>
+  </div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="container">
+    <section id="about" class="intro">
+      <h1>Sanjeev Nandihalli</h1>
+      <h2>2025 ISE Graduate, SKSKVMACET</h2>
+      <p>
+        Hi! I'm Sanjeev, a recent graduate in Information Science & Engineering from SKSKVMACET. I am passionate about web development and software engineering, and I love building user-friendly, efficient applications. I am eager to contribute my skills and grow in a dynamic team.
+      </p>
+    </section>
+
+    <section id="skills" class="skills">
+      <h2>Skills</h2>
+      <div class="skills-list">
+        <div class="skill-row"><div class="skill-bar"><div class="skill-bar-fill" style="width:70%"></div></div><div class="skill-label-wrap"><span style="color:#bbb; font-size:0.98rem;">70%</span><span class="html skill-label"><span class="skill-number">1</span> HTML</span></div></div>
+        <div class="skill-row"><div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div><div class="skill-label-wrap"><span style="color:#bbb; font-size:0.98rem;">65%</span><span class="css skill-label"><span class="skill-number">2</span> CSS</span></div></div>
+        <div class="skill-row"><div class="skill-bar"><div class="skill-bar-fill" style="width:50%"></div></div><div class="skill-label-wrap"><span style="color:#bbb; font-size:0.98rem;">50%</span><span class="js skill-label"><span class="skill-number">3</span> JavaScript</span></div></div>
+        <div class="skill-row"><div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div><div class="skill-label-wrap"><span style="color:#bbb; font-size:0.98rem;">75%</span><span class="python skill-label"><span class="skill-number">4</span> Python</span></div></div>
+        <div class="skill-row"><div class="skill-bar"><div class="skill-bar-fill" style="width:50%"></div></div><div class="skill-label-wrap"><span style="color:#bbb; font-size:0.98rem;">50%</span><span class="java skill-label"><span class="skill-number">5</span> Java</span></div></div>
+        <div class="skill-row"><div class="skill-bar"><div class="skill-bar-fill" style="width:60%"></div></div><div class="skill-label-wrap"><span style="color:#bbb; font-size:0.98rem;">60%</span><span class="mysql skill-label"><span class="skill-number">6</span> MySQL</span></div></div>
+        <div class="skill-row"><div class="skill-bar"><div class="skill-bar-fill" style="width:65%"></div></div><div class="skill-label-wrap"><span style="color:#bbb; font-size:0.98rem;">65%</span><span class="fullstack skill-label"><span class="skill-number">7</span> Full Stack Development</span></div></div>
+        <div class="skill-row"><div class="skill-bar"><div class="skill-bar-fill" style="width:50%"></div></div><div class="skill-label-wrap"><span style="color:#bbb; font-size:0.98rem;">50%</span><span class="manualtesting skill-label"><span class="skill-number">8</span> Manual Testing</span></div></div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card" onclick="window.location.href='project.html?project=student-portal'">
+          <div class="project-title">Student Portal</div>
+          <div class="project-description">
+            A comprehensive web application for students to view grades, attendance, and submit assignments online with a modern interface.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">MongoDB</span>
+          </div>
+          <a href="project.html?project=student-portal" class="project-link">View Details →</a>
+        </div>
+
+        <div class="project-card" onclick="window.location.href='project.html?project=parking-management'">
+          <div class="project-title">Parking Management System</div>
+          <div class="project-description">
+            An automated parking solution with real-time space tracking, payment integration, and user-friendly interface.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Python Django</span>
+            <span class="tech-tag">XAMPP</span>
+          </div>
+          <a href="project.html?project=parking-management" class="project-link">View Details →</a>
+        </div>
+
+        <div class="project-card" onclick="window.location.href='project.html?project=college-management'">
+          <div class="project-title">College Management System</div>
+          <div class="project-description">
+            A comprehensive platform improving communication between administrators, staff, and students with integrated management tools.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Full Stack</span>
+            <span class="tech-tag">SQLite</span>
+            <span class="tech-tag">Web Development</span>
+          </div>
+          <a href="project.html?project=college-management" class="project-link">View Details →</a>
+        </div>
+
+        <div class="project-card" onclick="window.location.href='project.html?project=smart-agriculture'">
+          <div class="project-title">Smart Agriculture Using IoT & AIML</div>
+          <div class="project-description">
+            An innovative IoT-based solution for monitoring environmental conditions and optimizing farming operations with real-time data analysis.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">Arduino/ESP32</span>
+            <span class="tech-tag">DHT11/22</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Android</span>
+            <span class="tech-tag">Bluetooth/Wi-Fi</span>
+          </div>
+          <a href="project.html?project=smart-agriculture" class="project-link">View Details →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="work-experience" class="work-experience" style="margin-top:3rem;">
+      <h2>Work Experience</h2>
+      <div style="margin-bottom:2rem;">
+        <h3 style="color:#00bcd4; margin-bottom:0.3rem;">Intern | SVARKS Technologies LLP <span style='font-size:1rem; color:#ffb300;'>(Nov-2023)</span></h3>
+        <p style="color:#bbb; margin:0 0 0.5rem 0;">Completed a Full Stack Development internship, gaining hands-on experience in frontend and backend technologies.</p>
+        <ul style="color:#bbb; font-size:1rem; margin:0 0 0.5rem 1.2rem;">
+          <li>Grand Coffee Shop Project</li>
+          <ul style="margin:0 0 0.5rem 1.2rem;">
+            <li>Developed a website using HTML, CSS, Bootstrap, JavaScript, and Python-Django.</li>
+            <li>Showcased available menu items with prices.</li>
+            <li>Enabled item ordering, multiple payment methods, home delivery, and a rating system.</li>
+          </ul>
+        </ul>
+      </div>
+      <div style="margin-bottom:2rem;">
+        <h3 style="color:#00bcd4; margin-bottom:0.3rem;">Intern | ROOMAN Technologies LLP <span style='font-size:1rem; color:#ffb300;'>(Sep-2025)</span></h3>
+        <p style="color:#bbb; margin:0 0 0.5rem 0;">CERTIFICATE: AI-DevOps Engineer Internship (Rooman Technologies), IBM Project on AI-DevOps Integration, Soft Skills Development Program (Wadhwani Foundation).</p>
+        <ul style="color:#bbb; font-size:1rem; margin:0 0 0.5rem 1.2rem;">
+          <li>I successfully completed a 6-month internship at Rooman Technologies in the role of an AI-DevOps Engineer.</li>
+          <li>Gained practical experience in implementing AI and DevOps methodologies, working on real-time tasks involving tools such as Docker, Jenkins, Git, and Kubernetes.</li>
+          <li>Contributed to an IBM project focused on AI-DevOps integration, building and deploying machine learning models and automating workflows.</li>
+          <li>Enhanced my soft skills through a structured program.</li>
+        </ul>
+      </div>
+      <div style="margin-bottom:2rem;">
+        <h3 style="color:#00bcd4; margin-bottom:0.3rem;">Freelance Developer | Self-Employed <span style='font-size:1rem; color:#ffb300;'>(Jan-2024 - Present)</span></h3>
+        <p style="color:#bbb; margin:0 0 0.5rem 0;">Working on various client projects, developing custom web applications and providing technical solutions.</p>
+        <ul style="color:#bbb; font-size:1rem; margin:0 0 0.5rem 1.2rem;">
+          <li>Developed responsive web applications using modern technologies like React.js, Node.js, and MongoDB.</li>
+          <li>Created e-commerce platforms with payment gateway integration and inventory management systems.</li>
+          <li>Built RESTful APIs and implemented authentication systems for secure user management.</li>
+          <li>Provided technical consulting and code optimization for existing projects.</li>
+          <li>Maintained and updated client websites with new features and bug fixes.</li>
+        </ul>
+      </div>
+      <a href="work_experience.html" style="display:inline-block; background:#00bcd4; color:#181818; padding:0.7rem 2rem; border-radius:24px; font-weight:bold; text-decoration:none; font-size:1.1rem; box-shadow:0 2px 8px rgba(0,188,212,0.10); transition:background 0.2s; margin-bottom:1.2rem;">See Full Work Experience</a>
+      <a href="personal_skills.html" style="display:inline-block; background:#ffb300; color:#181818; padding:0.7rem 2rem; border-radius:24px; font-weight:bold; text-decoration:none; font-size:1.1rem; box-shadow:0 2px 8px rgba(255,179,0,0.10); transition:background 0.2s; margin-left:1.2rem;">Personal Skills</a>
+      <a href="personal_details.html" style="display:inline-block; background:#ff4081; color:#fff; padding:0.7rem 2rem; border-radius:24px; font-weight:bold; text-decoration:none; font-size:1.1rem; box-shadow:0 2px 8px rgba(255,64,129,0.10); transition:background 0.2s; margin-left:1.2rem;">Personal Details</a>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <div class="contact-section">
+        <div class="contact-grid">
+          <div class="contact-card">
+            <span class="contact-icon">📞</span>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">+91 9353852667</div>
+            <div style="display: flex; gap: 0.8rem; margin-top: 0.8rem;">
+              <a href="tel:+919353852667" class="contact-link">
+                Call Now →
+              </a>
+              <a href="https://wa.me/919353852667" target="_blank" class="contact-link" style="color: #25D366;">
+                <span style="font-size: 1.2rem;">📱</span> WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <span class="contact-icon">✉️</span>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">sanjeev@email.com</div>
+            <a href="mailto:sanjeev@email.com" class="contact-link">
+              Send Email →
+            </a>
+          </div>
+
+          <div class="contact-card">
+            <span class="contact-icon">🌐</span>
+            <div class="contact-label">Social Profiles</div>
+            <div class="social-links">
+              <a href="https://github.com/sanjeev" target="_blank" class="social-btn">
+                <span style="font-size: 1.1rem; margin-right: 0.5rem;">🐙</span> GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/sanjeev-nandihalli-260983306?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="social-btn">
+                <span style="font-size: 1.1rem; margin-right: 0.5rem;">💼</span> LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Unique Marquee Footer -->
+  <div class="marquee-container">
+    <div class="marquee-glow"></div>
+    <div class="marquee-content">
+      <div class="marquee-text">
+        <span class="marquee-icon">🌟</span>
+        Thank you for visiting my portfolio! 🌟
+        <span class="marquee-icon">💻</span>
+        Feel free to reach out for collaborations! 💻
+        <span class="marquee-icon">🚀</span>
+        Let's build something amazing together! 🚀
+        <span class="marquee-icon">🌟</span>
+        Thank you for visiting my portfolio! 🌟
+        <span class="marquee-icon">💻</span>
+        Feel free to reach out for collaborations! 💻
+        <span class="marquee-icon">🚀</span>
+        Let's build something amazing together! 🚀
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fluid Animation Background
+    (function() {
+      const canvas = document.getElementById('fluid-canvas');
+      const gl = canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      
+      if (!gl) {
+        console.warn('WebGL not supported, skipping fluid animation');
+        return;
+      }
+
+      // Set canvas size
+      function resizeCanvas() {
+        const pixelRatio = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * pixelRatio;
+        canvas.height = window.innerHeight * pixelRatio;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      }
+      
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Simple fluid-like animation using shaders
+      const vertexShaderSource = `
+        attribute vec2 a_position;
+        varying vec2 v_uv;
+        
+        void main() {
+          v_uv = a_position * 0.5 + 0.5;
+          gl_Position = vec4(a_position, 0.0, 1.0);
+        }
+      `;
+
+      const fragmentShaderSource = `
+        precision mediump float;
+        varying vec2 v_uv;
+        uniform float u_time;
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+        
+        void main() {
+          vec2 uv = v_uv;
+          vec2 mouse = u_mouse / u_resolution;
+          
+          // Create fluid-like movement
+          float time = u_time * 0.5;
+          vec2 p = uv * 3.0;
+          
+          // Add some noise and movement
+          float noise = sin(p.x * 10.0 + time) * sin(p.y * 10.0 + time) * 0.5;
+          
+          // Create fluid effect
+          float fluid = sin(p.x + time) * cos(p.y + time) * 0.3;
+          fluid += sin(p.x * 2.0 + time * 1.5) * cos(p.y * 2.0 + time * 1.5) * 0.2;
+          
+          // Add mouse interaction
+          float dist = distance(uv, mouse);
+          float mouseEffect = smoothstep(0.3, 0.0, dist) * 0.5;
+          
+          // Combine effects
+          float final = fluid + noise + mouseEffect;
+          
+          // Create gradient colors
+          vec3 color1 = vec3(0.0, 0.737, 0.831); // #00bcd4
+          vec3 color2 = vec3(1.0, 0.702, 0.0);   // #ffb300
+          vec3 color3 = vec3(1.0, 0.251, 0.506); // #ff4081
+          
+          vec3 finalColor = mix(color1, color2, final * 0.5 + 0.5);
+          finalColor = mix(finalColor, color3, mouseEffect);
+          
+          gl_FragColor = vec4(finalColor, 0.15);
+        }
+      `;
+
+      // Compile shaders
+      function compileShader(source, type) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          console.error('Shader compilation error:', gl.getShaderInfoLog(shader));
+          gl.deleteShader(shader);
+          return null;
+        }
+        return shader;
+      }
+
+      const vertexShader = compileShader(vertexShaderSource, gl.VERTEX_SHADER);
+      const fragmentShader = compileShader(fragmentShaderSource, gl.FRAGMENT_SHADER);
+
+      // Create program
+      const program = gl.createProgram();
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error('Program linking error:', gl.getProgramInfoLog(program));
+        return;
+      }
+
+      gl.useProgram(program);
+
+      // Set up geometry
+      const positions = new Float32Array([
+        -1, -1,
+         1, -1,
+        -1,  1,
+         1,  1
+      ]);
+
+      const positionBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+      const positionLocation = gl.getAttribLocation(program, 'a_position');
+      gl.enableVertexAttribArray(positionLocation);
+      gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+      // Get uniform locations
+      const timeLocation = gl.getUniformLocation(program, 'u_time');
+      const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+      const mouseLocation = gl.getUniformLocation(program, 'u_mouse');
+
+      // Set initial uniforms
+      gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+      gl.uniform2f(mouseLocation, 0, 0);
+
+      // Mouse tracking
+      let mouseX = 0, mouseY = 0;
+      
+      document.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = rect.height - (e.clientY - rect.top);
+      });
+
+      // Animation loop
+      function animate(time) {
+        gl.uniform1f(timeLocation, time * 0.001);
+        gl.uniform2f(mouseLocation, mouseX, mouseY);
+        
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        requestAnimationFrame(animate);
+      }
+
+      // Enable blending for transparency
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      
+      // Start animation
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html> 
